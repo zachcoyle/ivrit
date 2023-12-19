@@ -94,4 +94,36 @@ final class ivritTests: XCTestCase {
         .reduce(true, { $0 && xsJoined == $1 })
       }
   }
+
+  func testRemoveNone() throws {
+    let testString = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ"
+    XCTAssert(testString == remove(text: testString, options: []))
+  }
+
+  func testRemoveAccents() throws {
+    let testString = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ"
+    let expectedResult = "שָׂרַי אִשְׁתְּךָ, וַֽיִּמְצְאוּ"
+    XCTAssert(expectedResult == remove(text: testString, options: Niqqud.accents))
+  }
+
+  func testRemoveAccentsVowelsLeaveSinShinDot() throws {
+    let testString = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ"
+    let expectedResult = "שׂרי אשׁתך, וימצאו"
+    let removed = remove(text: testString, options: Niqqud.accents + Niqqud.vowels + Niqqud.meteg)
+    XCTAssert(expectedResult == removed)
+  }
+
+  func testRemoveAll() throws {
+    let testString = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ"
+    let expectedResult = "שרי אשתך, וימצאו"
+    let removed = remove(text: testString, options: Niqqud.allCases)
+    XCTAssert(expectedResult == removed)
+  }
+
+  func testRemoveSinShinDot() throws {
+    let testString = "שָׂרַ֣י אִשְׁתְּךָ֔"
+    let expectedResult = "שָרַ֣י אִשְתְּךָ֔"
+    let removed = remove(text: testString, options: [Niqqud.sinDot, Niqqud.shinDot])
+    XCTAssert(expectedResult == removed)
+  }
 }

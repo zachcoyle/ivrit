@@ -162,3 +162,21 @@ extension Niqqud {
     ]
   }
 }
+
+extension Set<Niqqud> {
+  public func with(_ xs: Set<Niqqud>) -> Set<Niqqud> {
+    return self.union(xs)
+  }
+}
+
+extension Set<Niqqud> {
+  public static func + (_ lhs: Set<Niqqud>, _ rhs: Set<Niqqud>) -> Set<Niqqud> {
+    return lhs.union(rhs)
+  }
+  public static func + (_ lhs: Set<Niqqud>, _ rhs: Niqqud) -> Set<Niqqud> {
+    return lhs.union([rhs])
+  }
+  public static func + (_ lhs: Niqqud, _ rhs: Set<Niqqud>) -> Set<Niqqud> {
+    return rhs.union([lhs])
+  }
+}
