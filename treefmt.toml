@@ -1,0 +1,12 @@
+[formatter.nix]
+command = "alejandra"
+options = []
+includes = ["*.nix"]
+excludes = []
+
+
+[formatter.swift]
+command = "swift-format"
+options = ["-i"]
+includes = [ "*.swift" ]
+excludes = []

@@ -1,23 +1,34 @@
 // swift-tools-version: 5.9
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
 
 let package = Package(
-    name: "ivrit",
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "ivrit",
-            targets: ["ivrit"]),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "ivrit"),
-        .testTarget(
-            name: "ivritTests",
-            dependencies: ["ivrit"]),
-    ]
+  name: "ivrit",
+  products: [
+    .library(
+      name: "ivrit",
+      targets: [
+        "ivrit"
+      ]
+    )
+  ],
+  dependencies: [
+    .package(
+      url: "https://github.com/typelift/SwiftCheck.git",
+      exact: "0.12.0"
+    ),
+    .package(
+      url: "https://github.com/apple/swift-algorithms.git",
+      revision: "c3b3acbca3aa70adbd30756fe137b14e25140c0d"
+    ),
+  ],
+  targets: [
+    .target(name: "ivrit"),
+    .testTarget(
+      name: "ivritTests",
+      dependencies: [
+        "ivrit",
+        "SwiftCheck",
+        .product(name: "Algorithms", package: "swift-algorithms"),
+      ]),
+  ]
 )
