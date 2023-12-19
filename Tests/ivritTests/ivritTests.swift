@@ -21,7 +21,7 @@ let gen11Letters: [Alefbet] = [
   .bet,
   .resh,
   .alef,
-  .shin,
+  .sinWithoutDot,
   .yod,
   .lamed,
   .he,
@@ -71,8 +71,21 @@ final class ivritTests: XCTestCase {
       }
   }
 
+  @available(iOS 16.0, *)
+  func testGen_1_1_Remove() throws {
+    property("Gen 1:1 Never Loses Consonants")
+      <- forAll { (xs: Set<Niqqud>) in
+        let removed = remove(text: gen_1_1, options: xs)
+        return gen11Letters.map {
+          let contains = removed.unicodeScalars.contains($0.rawValue.unicodeScalars)
+          print("\(removed) | contains \($0) ? \(contains)")
+          return contains
+        }.reduce(true, and)
+      }
+  }
+
   func testInterspersed() throws {
-    property("xyz")
+    property("Consonants interspersed with any Niqqud - Niqqud = Original Consonants")
       <- forAll { (xs: [Alefbet], ys: [Niqqud]) in
         let noSinShinWithDot = xs.filter { $0 != .sin && $0 != .shin }
         let xsJoined = noSinShinWithDot.map { $0.rawValue }.joined()
