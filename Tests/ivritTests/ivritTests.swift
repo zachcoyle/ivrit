@@ -2,16 +2,16 @@ import Algorithms
 import SwiftCheck
 import XCTest
 
-@testable import ivrit
+@testable import IvritKit
 
 extension Alefbet: Arbitrary {
-  public static var arbitrary: SwiftCheck.Gen<ivrit.Alefbet> {
+  public static var arbitrary: SwiftCheck.Gen<IvritKit.Alefbet> {
     Gen.fromElements(of: Alefbet.allCases)
   }
 }
 
 extension Niqqud: Arbitrary {
-  public static var arbitrary: SwiftCheck.Gen<ivrit.Niqqud> {
+  public static var arbitrary: SwiftCheck.Gen<IvritKit.Niqqud> {
     Gen.fromElements(of: Niqqud.allCases)
   }
 }
@@ -72,7 +72,7 @@ final class ivritTests: XCTestCase {
   }
 
   @available(iOS 16.0, *)
-  func testGen_1_1_Remove() throws {
+  func testGen1_1KeepsConsonants() throws {
     property("Gen 1:1 Never Loses Consonants")
       <- forAll { (xs: Set<Niqqud>) in
         let removed = remove(text: gen_1_1, options: xs)
@@ -80,6 +80,11 @@ final class ivritTests: XCTestCase {
           removed.unicodeScalars.contains($0.rawValue.unicodeScalars)
         }.reduce(true, and)
       }
+  }
+
+  func testGen1_1RemoveAll() throws {
+    let testText = "בראשית ברא אלהים את השמים ואת הארץ"
+    XCTAssert(testText == remove(text: gen_1_1, options: Niqqud.all))
   }
 
   func testInterspersed() throws {
@@ -92,6 +97,13 @@ final class ivritTests: XCTestCase {
         }
         .map { remove(text: $0, options: ys) }
         .reduce(true, { $0 && xsJoined == $1 })
+      }
+  }
+
+  func testNiqqudRemovesItself() throws {
+    property("Niqqud - Itself = ''")
+      <- forAll { (x: Niqqud) in
+        "" == remove(text: x.rawValue, options: x)
       }
   }
 
@@ -126,4 +138,36 @@ final class ivritTests: XCTestCase {
     let removed = remove(text: testString, options: [Niqqud.sinDot, Niqqud.shinDot])
     XCTAssert(expectedResult == removed)
   }
+
+  func testAsciiIdentity() throws {
+    for i in 0x0000...0x007F {
+      if let u = UnicodeScalar(i) {
+        let ascii = String(u)
+        XCTAssert(ascii == remove(text: ascii, options: Niqqud.all))
+      }
+    }
+  }
+
+  func testAllUnicodeIdentityExceptNiqqud() throws {
+    for i in 0x0000...0x10FFFD {
+      if let scalar = UnicodeScalar(i) {
+        let u = String(scalar)
+        if let nq = Niqqud(rawValue: u) {
+          print("Unicode Identity - Skipping \(nq)")
+        } else {
+          XCTAssert(u == remove(text: u, options: Niqqud.all))
+        }
+      }
+    }
+  }
+
+  func testAllEmojiIdentity() throws {
+    for i in 0x1F601...0x65039 {
+      if let scalar = UnicodeScalar(i) {
+        let emoji = String(scalar)
+        XCTAssert(emoji == remove(text: emoji, options: Niqqud.all))
+      }
+    }
+  }
+
 }

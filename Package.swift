@@ -2,14 +2,20 @@
 import PackageDescription
 
 let package = Package(
-  name: "ivrit",
+  name: "IvritKit",
   products: [
     .library(
+      name: "IvritKit",
+      targets: [
+        "IvritKit"
+      ]
+    ),
+    .executable(
       name: "ivrit",
       targets: [
         "ivrit"
       ]
-    )
+    ),
   ],
   dependencies: [
     .package(
@@ -20,13 +26,23 @@ let package = Package(
       url: "https://github.com/apple/swift-algorithms.git",
       revision: "c3b3acbca3aa70adbd30756fe137b14e25140c0d"
     ),
+    .package(
+      url: "https://github.com/apple/swift-argument-parser",
+      exact: "1.3.0"
+    ),
   ],
   targets: [
-    .target(name: "ivrit"),
+    .executableTarget(
+      name: "ivrit",
+      dependencies: [
+        "IvritKit",
+        .product(name: "ArgumentParser", package: "swift-argument-parser"),
+      ]),
+    .target(name: "IvritKit"),
     .testTarget(
       name: "ivritTests",
       dependencies: [
-        "ivrit",
+        "IvritKit",
         "SwiftCheck",
         .product(name: "Algorithms", package: "swift-algorithms"),
       ]),

@@ -66,6 +66,14 @@ public enum Niqqud: String, CaseIterable {
 }
 
 extension Niqqud {
+  public static var all: Set<Niqqud> { Set(Niqqud.allCases) }
+}
+
+extension Niqqud {
+  public static var none: Set<Niqqud> { [] }
+}
+
+extension Niqqud {
   public static var accents: Set<Niqqud> {
     [
       .etnahta,
@@ -166,6 +174,15 @@ extension Niqqud {
 extension Set<Niqqud> {
   public func with(_ xs: Set<Niqqud>) -> Set<Niqqud> {
     return self.union(xs)
+  }
+  public func with(_ x: Niqqud) -> Set<Niqqud> {
+    return self.union([x])
+  }
+  public func without(_ xs: Set<Niqqud>) -> Set<Niqqud> {
+    return self.filter { !xs.contains($0) }
+  }
+  public func without(_ x: Niqqud) -> Set<Niqqud> {
+    return self.filter { $0 == x }
   }
 }
 
