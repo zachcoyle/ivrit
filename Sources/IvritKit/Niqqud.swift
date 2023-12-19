@@ -197,3 +197,124 @@ extension Set<Niqqud> {
     return rhs.union([lhs])
   }
 }
+
+extension Niqqud {
+  var pretty: String {
+    switch self {
+    case .etnahta:
+      "Etnahta"
+    case .segolta:
+      "Segolta"
+    case .shalshelet:
+      "Shalshelet"
+    case .zaqefQatan:
+      "Zaqef Qatan"
+    case .zaqefGadol:
+      "Zaqef Gadol"
+    case .tipeha:
+      "Tipeha"
+    case .revia:
+      "Revia"
+    case .zarqa:
+      "Zarqa"
+    case .pashta:
+      "Pashta"
+    case .yetiv:
+      "Yetiv"
+    case .tevir:
+      "Tevir"
+    case .geresh:
+      "Geresh"
+    case .gereshMuqdam:
+      "Geresh Muqdam"
+    case .gershayim:
+      "Gershayim"
+    case .qarneyPara:
+      "Qarney Para"
+    case .telishaGedola:
+      "Teslisha Gedola"
+    case .pazer:
+      "Pazer"
+    case .atnahHafukh:
+      "Atnah Hafukh"
+    case .munah:
+      "Munah"
+    case .mahapakh:
+      "Mahapakh"
+    case .merkha:
+      "Merkha"
+    case .merkhaKefula:
+      "Merkha Kefula"
+    case .darga:
+      "Darga"
+    case .qadma:
+      "Qadma"
+    case .telishaQetana:
+      "Telisha Qetana"
+    case .yerahBenYomo:
+      "Yerah Ben Yomo"
+    case .ole:
+      "Ole"
+    case .iluy:
+      "Iluy"
+    case .dehi:
+      "Dehi"
+    case .zinor:
+      "Zinor"
+    case .sheva:
+      "Sheva"
+    case .hatafSegol:
+      "Hataf Segol"
+    case .hatafPatah:
+      "Hataf Patah"
+    case .hatafQamats:
+      "Hataf Qamats"
+    case .hiriq:
+      "Hiriq"
+    case .tsere:
+      "Tsere"
+    case .segol:
+      "Segol"
+    case .patah:
+      "Patah"
+    case .qamats:
+      "Qamats"
+    case .holam:
+      "Holam"
+    case .holamHaserForVav:
+      "Holam Haser For Vav"
+    case .qubuts:
+      "Qubuts"
+    case .dagesh:
+      "Dagesh"
+    case .qamatsQatan:
+      "Qamats Qatan"
+    case .meteg:
+      "Meteg"
+    case .rafe:
+      "Rafe"
+    case .shinDot:
+      "Shin Dot"
+    case .sinDot:
+      "Sin Dot"
+    case .maqaf:
+      "Maqaf"
+    case .paseq:
+      "Paseq"
+    case .sofPasuq:
+      "Sof Pasuq"
+    case .nunHafukha:
+      "Nun Hafukha"
+    case .puncGeresh:
+      "Punctuation Geresh"
+    case .puncGershayim:
+      "Punctuation Gershayim"
+    case .masoraCircle:
+      "Masora Circle"
+    case .upperDot:
+      "Upper Dot"
+    case .lowerDot:
+      "Lower Dot"
+    }
+  }
+}
