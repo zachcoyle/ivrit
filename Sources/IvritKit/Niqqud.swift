@@ -199,7 +199,7 @@ extension Set<Niqqud> {
 }
 
 extension Niqqud {
-  var pretty: String {
+  public var pretty: String {
     switch self {
     case .etnahta:
       "Etnahta"
