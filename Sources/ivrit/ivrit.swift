@@ -1,6 +1,6 @@
 import Foundation
 
-func remove(text: String, options: Set<Niqqud>) -> String {
+public func remove(text: String, options: Set<Niqqud>) -> String {
   guard options != [] else { return text }
   return String(
     text

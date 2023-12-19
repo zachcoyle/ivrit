@@ -1,6 +1,6 @@
 import Foundation
 
-enum Niqqud: String {
+public enum Niqqud: String, CaseIterable {
   // accent
   case etnahta = "\u{0591}"
   case segolta = "\u{0592}"
@@ -65,10 +65,8 @@ enum Niqqud: String {
   case lowerDot = "\u{05C5}"
 }
 
-extension Niqqud: CaseIterable {}
-
 extension Niqqud {
-  static var accents: Set<Niqqud> {
+  public static var accents: Set<Niqqud> {
     [
       .etnahta,
       .segolta,
@@ -105,7 +103,7 @@ extension Niqqud {
 }
 
 extension Niqqud {
-  static var vowels: Set<Niqqud> {
+  public static var vowels: Set<Niqqud> {
     [
       .sheva,
       .hatafSegol,
@@ -126,7 +124,7 @@ extension Niqqud {
 }
 
 extension Niqqud {
-  static var nonVowelPoints: Set<Niqqud> {
+  public static var nonVowelPoints: Set<Niqqud> {
     [
       .meteg,
       .rafe,
@@ -137,13 +135,13 @@ extension Niqqud {
 }
 
 extension Niqqud {
-  static var points: Set<Niqqud> {
+  public static var points: Set<Niqqud> {
     vowels.union(nonVowelPoints)
   }
 }
 
 extension Niqqud {
-  static var punctuation: Set<Niqqud> {
+  public static var punctuation: Set<Niqqud> {
     [
       .maqaf,
       .paseq,
@@ -156,7 +154,7 @@ extension Niqqud {
 }
 
 extension Niqqud {
-  static var marks: Set<Niqqud> {
+  public static var marks: Set<Niqqud> {
     [
       .masoraCircle,
       .upperDot,

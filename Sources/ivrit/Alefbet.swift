@@ -1,6 +1,7 @@
 import Foundation
 
-enum Alefbet: String {
+public enum Alefbet: String, CaseIterable, CustomStringConvertible {
+  public var description: String { self.rawValue }
   case alef = "א"
   case bet = "ב"
   case gimel = "ג"
@@ -32,13 +33,8 @@ enum Alefbet: String {
   case tav = "ת"
 }
 
-extension Alefbet: CaseIterable {}
-extension Alefbet: CustomStringConvertible {
-  var description: String { self.rawValue }
-}
-
 extension Alefbet {
-  static var begadkefath: Set<Alefbet> {
+  public static var begadkefath: Set<Alefbet> {
     [
       .bet,
       .gimel,
@@ -51,7 +47,7 @@ extension Alefbet {
 }
 
 extension Alefbet {
-  static var sofit: Set<Alefbet> {
+  public static var sofit: Set<Alefbet> {
     [
       .kafSofit,
       .memSofit,
