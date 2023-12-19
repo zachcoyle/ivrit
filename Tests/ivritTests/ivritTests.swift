@@ -77,22 +77,20 @@ final class ivritTests: XCTestCase {
       <- forAll { (xs: Set<Niqqud>) in
         let removed = remove(text: gen_1_1, options: xs)
         return gen11Letters.map {
-          let contains = removed.unicodeScalars.contains($0.rawValue.unicodeScalars)
-          print("\(removed) | contains \($0) ? \(contains)")
-          return contains
+          removed.unicodeScalars.contains($0.rawValue.unicodeScalars)
         }.reduce(true, and)
       }
   }
 
   func testInterspersed() throws {
     property("Consonants interspersed with any Niqqud - Niqqud = Original Consonants")
-      <- forAll { (xs: [Alefbet], ys: [Niqqud]) in
+      <- forAll { (xs: [Alefbet], ys: Set<Niqqud>) in
         let noSinShinWithDot = xs.filter { $0 != .sin && $0 != .shin }
         let xsJoined = noSinShinWithDot.map { $0.rawValue }.joined()
         return ys.map {
           noSinShinWithDot.map { $0.rawValue }.interspersed(with: $0.rawValue).joined()
         }
-        .map { remove(text: $0, options: Set(ys)) }
+        .map { remove(text: $0, options: ys) }
         .reduce(true, { $0 && xsJoined == $1 })
       }
   }
